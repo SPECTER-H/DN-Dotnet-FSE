@@ -1,0 +1,14 @@
+/Users/adithya/Documents/DN-Dotnet-FSE/Deepskilling/Week_1/Engineering concepts/SingletonPatternExample/obj/Debug/net10.0/SingletonPatternExample.GeneratedMSBuildEditorConfig.editorconfig
+/Users/adithya/Documents/DN-Dotnet-FSE/Deepskilling/Week_1/Engineering concepts/SingletonPatternExample/obj/Debug/net10.0/SingletonPatternExample.AssemblyInfoInputs.cache
+/Users/adithya/Documents/DN-Dotnet-FSE/Deepskilling/Week_1/Engineering concepts/SingletonPatternExample/obj/Debug/net10.0/SingletonPatternExample.AssemblyInfo.cs
+/Users/adithya/Documents/DN-Dotnet-FSE/Deepskilling/Week_1/Engineering concepts/SingletonPatternExample/obj/Debug/net10.0/SingletonPatternExample.csproj.CoreCompileInputs.cache
+/Users/adithya/Documents/DN-Dotnet-FSE/Deepskilling/Week_1/Engineering concepts/SingletonPatternExample/bin/Debug/net10.0/SingletonPatternExample
+/Users/adithya/Documents/DN-Dotnet-FSE/Deepskilling/Week_1/Engineering concepts/SingletonPatternExample/bin/Debug/net10.0/SingletonPatternExample.deps.json
+/Users/adithya/Documents/DN-Dotnet-FSE/Deepskilling/Week_1/Engineering concepts/SingletonPatternExample/bin/Debug/net10.0/SingletonPatternExample.runtimeconfig.json
+/Users/adithya/Documents/DN-Dotnet-FSE/Deepskilling/Week_1/Engineering concepts/SingletonPatternExample/bin/Debug/net10.0/SingletonPatternExample.dll
+/Users/adithya/Documents/DN-Dotnet-FSE/Deepskilling/Week_1/Engineering concepts/SingletonPatternExample/bin/Debug/net10.0/SingletonPatternExample.pdb
+/Users/adithya/Documents/DN-Dotnet-FSE/Deepskilling/Week_1/Engineering concepts/SingletonPatternExample/obj/Debug/net10.0/SingletonPatternExample.dll
+/Users/adithya/Documents/DN-Dotnet-FSE/Deepskilling/Week_1/Engineering concepts/SingletonPatternExample/obj/Debug/net10.0/refint/SingletonPatternExample.dll
+/Users/adithya/Documents/DN-Dotnet-FSE/Deepskilling/Week_1/Engineering concepts/SingletonPatternExample/obj/Debug/net10.0/SingletonPatternExample.pdb
+/Users/adithya/Documents/DN-Dotnet-FSE/Deepskilling/Week_1/Engineering concepts/SingletonPatternExample/obj/Debug/net10.0/SingletonPatternExample.genruntimeconfig.cache
+/Users/adithya/Documents/DN-Dotnet-FSE/Deepskilling/Week_1/Engineering concepts/SingletonPatternExample/obj/Debug/net10.0/ref/SingletonPatternExample.dll
