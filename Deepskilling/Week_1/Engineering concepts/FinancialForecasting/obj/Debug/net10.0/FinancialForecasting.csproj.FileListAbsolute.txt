@@ -1,0 +1,15 @@
+/Users/adithya/Documents/DN-Dotnet-FSE/Deepskilling/Week_1/Engineering concepts/FinancialForecasting/bin/Debug/net10.0/FinancialForecasting
+/Users/adithya/Documents/DN-Dotnet-FSE/Deepskilling/Week_1/Engineering concepts/FinancialForecasting/bin/Debug/net10.0/FinancialForecasting.deps.json
+/Users/adithya/Documents/DN-Dotnet-FSE/Deepskilling/Week_1/Engineering concepts/FinancialForecasting/bin/Debug/net10.0/FinancialForecasting.runtimeconfig.json
+/Users/adithya/Documents/DN-Dotnet-FSE/Deepskilling/Week_1/Engineering concepts/FinancialForecasting/bin/Debug/net10.0/FinancialForecasting.dll
+/Users/adithya/Documents/DN-Dotnet-FSE/Deepskilling/Week_1/Engineering concepts/FinancialForecasting/bin/Debug/net10.0/FinancialForecasting.pdb
+/Users/adithya/Documents/DN-Dotnet-FSE/Deepskilling/Week_1/Engineering concepts/FinancialForecasting/obj/Debug/net10.0/FinancialForecasting.GeneratedMSBuildEditorConfig.editorconfig
+/Users/adithya/Documents/DN-Dotnet-FSE/Deepskilling/Week_1/Engineering concepts/FinancialForecasting/obj/Debug/net10.0/FinancialForecasting.AssemblyInfoInputs.cache
+/Users/adithya/Documents/DN-Dotnet-FSE/Deepskilling/Week_1/Engineering concepts/FinancialForecasting/obj/Debug/net10.0/FinancialForecasting.AssemblyInfo.cs
+/Users/adithya/Documents/DN-Dotnet-FSE/Deepskilling/Week_1/Engineering concepts/FinancialForecasting/obj/Debug/net10.0/FinancialForecasting.csproj.CoreCompileInputs.cache
+/Users/adithya/Documents/DN-Dotnet-FSE/Deepskilling/Week_1/Engineering concepts/FinancialForecasting/obj/Debug/net10.0/FinancialForecasting.sourcelink.json
+/Users/adithya/Documents/DN-Dotnet-FSE/Deepskilling/Week_1/Engineering concepts/FinancialForecasting/obj/Debug/net10.0/FinancialForecasting.dll
+/Users/adithya/Documents/DN-Dotnet-FSE/Deepskilling/Week_1/Engineering concepts/FinancialForecasting/obj/Debug/net10.0/refint/FinancialForecasting.dll
+/Users/adithya/Documents/DN-Dotnet-FSE/Deepskilling/Week_1/Engineering concepts/FinancialForecasting/obj/Debug/net10.0/FinancialForecasting.pdb
+/Users/adithya/Documents/DN-Dotnet-FSE/Deepskilling/Week_1/Engineering concepts/FinancialForecasting/obj/Debug/net10.0/FinancialForecasting.genruntimeconfig.cache
+/Users/adithya/Documents/DN-Dotnet-FSE/Deepskilling/Week_1/Engineering concepts/FinancialForecasting/obj/Debug/net10.0/ref/FinancialForecasting.dll
