@@ -1,0 +1,15 @@
+/Users/adithya/Documents/DN-Dotnet-FSE/Deepskilling/Week_1/Engineering concepts/FactoryMethodPatternExample/bin/Debug/net10.0/FactoryMethodPatternExample
+/Users/adithya/Documents/DN-Dotnet-FSE/Deepskilling/Week_1/Engineering concepts/FactoryMethodPatternExample/bin/Debug/net10.0/FactoryMethodPatternExample.deps.json
+/Users/adithya/Documents/DN-Dotnet-FSE/Deepskilling/Week_1/Engineering concepts/FactoryMethodPatternExample/bin/Debug/net10.0/FactoryMethodPatternExample.runtimeconfig.json
+/Users/adithya/Documents/DN-Dotnet-FSE/Deepskilling/Week_1/Engineering concepts/FactoryMethodPatternExample/bin/Debug/net10.0/FactoryMethodPatternExample.dll
+/Users/adithya/Documents/DN-Dotnet-FSE/Deepskilling/Week_1/Engineering concepts/FactoryMethodPatternExample/bin/Debug/net10.0/FactoryMethodPatternExample.pdb
+/Users/adithya/Documents/DN-Dotnet-FSE/Deepskilling/Week_1/Engineering concepts/FactoryMethodPatternExample/obj/Debug/net10.0/FactoryMethodPatternExample.GeneratedMSBuildEditorConfig.editorconfig
+/Users/adithya/Documents/DN-Dotnet-FSE/Deepskilling/Week_1/Engineering concepts/FactoryMethodPatternExample/obj/Debug/net10.0/FactoryMethodPatternExample.AssemblyInfoInputs.cache
+/Users/adithya/Documents/DN-Dotnet-FSE/Deepskilling/Week_1/Engineering concepts/FactoryMethodPatternExample/obj/Debug/net10.0/FactoryMethodPatternExample.AssemblyInfo.cs
+/Users/adithya/Documents/DN-Dotnet-FSE/Deepskilling/Week_1/Engineering concepts/FactoryMethodPatternExample/obj/Debug/net10.0/FactoryMethodPatternExample.csproj.CoreCompileInputs.cache
+/Users/adithya/Documents/DN-Dotnet-FSE/Deepskilling/Week_1/Engineering concepts/FactoryMethodPatternExample/obj/Debug/net10.0/FactoryMethodPatternExample.sourcelink.json
+/Users/adithya/Documents/DN-Dotnet-FSE/Deepskilling/Week_1/Engineering concepts/FactoryMethodPatternExample/obj/Debug/net10.0/FactoryMethodPatternExample.dll
+/Users/adithya/Documents/DN-Dotnet-FSE/Deepskilling/Week_1/Engineering concepts/FactoryMethodPatternExample/obj/Debug/net10.0/refint/FactoryMethodPatternExample.dll
+/Users/adithya/Documents/DN-Dotnet-FSE/Deepskilling/Week_1/Engineering concepts/FactoryMethodPatternExample/obj/Debug/net10.0/FactoryMethodPatternExample.pdb
+/Users/adithya/Documents/DN-Dotnet-FSE/Deepskilling/Week_1/Engineering concepts/FactoryMethodPatternExample/obj/Debug/net10.0/FactoryMethodPatternExample.genruntimeconfig.cache
+/Users/adithya/Documents/DN-Dotnet-FSE/Deepskilling/Week_1/Engineering concepts/FactoryMethodPatternExample/obj/Debug/net10.0/ref/FactoryMethodPatternExample.dll
