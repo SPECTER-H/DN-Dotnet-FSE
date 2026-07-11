@@ -1,0 +1,15 @@
+/Users/adithya/Documents/DN-Dotnet-FSE/Deepskilling/Week_1/Engineering concepts/ECommerceSearchFunction/bin/Debug/net10.0/ECommerceSearchFunction
+/Users/adithya/Documents/DN-Dotnet-FSE/Deepskilling/Week_1/Engineering concepts/ECommerceSearchFunction/bin/Debug/net10.0/ECommerceSearchFunction.deps.json
+/Users/adithya/Documents/DN-Dotnet-FSE/Deepskilling/Week_1/Engineering concepts/ECommerceSearchFunction/bin/Debug/net10.0/ECommerceSearchFunction.runtimeconfig.json
+/Users/adithya/Documents/DN-Dotnet-FSE/Deepskilling/Week_1/Engineering concepts/ECommerceSearchFunction/bin/Debug/net10.0/ECommerceSearchFunction.dll
+/Users/adithya/Documents/DN-Dotnet-FSE/Deepskilling/Week_1/Engineering concepts/ECommerceSearchFunction/bin/Debug/net10.0/ECommerceSearchFunction.pdb
+/Users/adithya/Documents/DN-Dotnet-FSE/Deepskilling/Week_1/Engineering concepts/ECommerceSearchFunction/obj/Debug/net10.0/ECommerceSearchFunction.GeneratedMSBuildEditorConfig.editorconfig
+/Users/adithya/Documents/DN-Dotnet-FSE/Deepskilling/Week_1/Engineering concepts/ECommerceSearchFunction/obj/Debug/net10.0/ECommerceSearchFunction.AssemblyInfoInputs.cache
+/Users/adithya/Documents/DN-Dotnet-FSE/Deepskilling/Week_1/Engineering concepts/ECommerceSearchFunction/obj/Debug/net10.0/ECommerceSearchFunction.AssemblyInfo.cs
+/Users/adithya/Documents/DN-Dotnet-FSE/Deepskilling/Week_1/Engineering concepts/ECommerceSearchFunction/obj/Debug/net10.0/ECommerceSearchFunction.csproj.CoreCompileInputs.cache
+/Users/adithya/Documents/DN-Dotnet-FSE/Deepskilling/Week_1/Engineering concepts/ECommerceSearchFunction/obj/Debug/net10.0/ECommerceSearchFunction.sourcelink.json
+/Users/adithya/Documents/DN-Dotnet-FSE/Deepskilling/Week_1/Engineering concepts/ECommerceSearchFunction/obj/Debug/net10.0/ECommerceSearchFunction.dll
+/Users/adithya/Documents/DN-Dotnet-FSE/Deepskilling/Week_1/Engineering concepts/ECommerceSearchFunction/obj/Debug/net10.0/refint/ECommerceSearchFunction.dll
+/Users/adithya/Documents/DN-Dotnet-FSE/Deepskilling/Week_1/Engineering concepts/ECommerceSearchFunction/obj/Debug/net10.0/ECommerceSearchFunction.pdb
+/Users/adithya/Documents/DN-Dotnet-FSE/Deepskilling/Week_1/Engineering concepts/ECommerceSearchFunction/obj/Debug/net10.0/ECommerceSearchFunction.genruntimeconfig.cache
+/Users/adithya/Documents/DN-Dotnet-FSE/Deepskilling/Week_1/Engineering concepts/ECommerceSearchFunction/obj/Debug/net10.0/ref/ECommerceSearchFunction.dll

@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v10.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v10.0": {
+      "ECommerceSearchFunction/1.0.0": {
+        "runtime": {
+          "ECommerceSearchFunction.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "ECommerceSearchFunction/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
