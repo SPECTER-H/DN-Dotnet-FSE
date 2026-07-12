@@ -1,56 +1,37 @@
-﻿using System.Text.Json;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using RetailInventory.Data;
-using RetailInventory.DTOs;
+using RetailInventory.Queries;
 
-using var context = new AppDbContext();
+await using var context = new AppDbContext();
 
-Console.WriteLine("===== Lab 12 - DTOs and Circular References =====");
+Console.WriteLine("===== Lab 13 - Tracking and Compiled Queries =====");
 
-// DTO projection
-var productDTOs = await context.Products
+// AsNoTracking demonstration
+Console.WriteLine("\n=== Read-Only Query with AsNoTracking ===");
+
+var readOnlyProducts = await context.Products
     .AsNoTracking()
-    .Select(p => new ProductDTO
-    {
-        Name = p.Name,
-        Price = p.Price,
-        CategoryName = p.Category != null
-            ? p.Category.Name
-            : "Unknown"
-    })
+    .OrderBy(product => product.Name)
     .ToListAsync();
 
-Console.WriteLine("\n=== Product DTOs ===");
-
-foreach (var product in productDTOs)
+foreach (var product in readOnlyProducts)
 {
     Console.WriteLine(
-        $"{product.Name} | ₹{product.Price} | {product.CategoryName}");
+        $"{product.Name} | Price: ₹{product.Price} | Stock: {product.StockQuantity}");
 }
 
-// Serialize DTOs safely
-var dtoJson = JsonSerializer.Serialize(
-    productDTOs,
-    new JsonSerializerOptions
-    {
-        WriteIndented = true
-    });
+Console.WriteLine(
+    $"\nTracked entities after AsNoTracking query: " +
+    $"{context.ChangeTracker.Entries().Count()}");
 
-Console.WriteLine("\n=== DTO JSON ===");
-Console.WriteLine(dtoJson);
+// Compiled query demonstration
+const decimal minimumPrice = 1000;
 
-// Alternative: JsonIgnore on navigation property
-var categories = await context.Categories
-    .Include(c => c.Products)
-    .AsNoTracking()
-    .ToListAsync();
+Console.WriteLine(
+    $"\n=== Compiled Query: Products Above ₹{minimumPrice} ===");
 
-var categoryJson = JsonSerializer.Serialize(
-    categories,
-    new JsonSerializerOptions
-    {
-        WriteIndented = true
-    });
-
-Console.WriteLine("\n=== Categories JSON using JsonIgnore ===");
-Console.WriteLine(categoryJson);
+await foreach (
+    var product in ProductQueries.ExpensiveProducts(context, minimumPrice))
+{
+    Console.WriteLine($"{product.Name} | ₹{product.Price}");
+}
