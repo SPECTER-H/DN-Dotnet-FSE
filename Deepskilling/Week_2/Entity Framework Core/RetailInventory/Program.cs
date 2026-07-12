@@ -1,76 +1,56 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Text.Json;
+using Microsoft.EntityFrameworkCore;
 using RetailInventory.Data;
-using RetailInventory.Models;
+using RetailInventory.DTOs;
 
 using var context = new AppDbContext();
 
-Console.WriteLine("===== Lab 11 - Relationships =====");
+Console.WriteLine("===== Lab 12 - DTOs and Circular References =====");
 
-// Add ProductDetail for Smartphone if it does not exist
-var smartphone = await context.Products
-    .Include(p => p.ProductDetail)
-    .Include(p => p.Tags)
-    .FirstAsync(p => p.Name == "Smartphone");
-
-if (smartphone.ProductDetail == null)
-{
-    smartphone.ProductDetail = new ProductDetail
+// DTO projection
+var productDTOs = await context.Products
+    .AsNoTracking()
+    .Select(p => new ProductDTO
     {
-        WarrantyInfo = "1 year manufacturer warranty"
-    };
+        Name = p.Name,
+        Price = p.Price,
+        CategoryName = p.Category != null
+            ? p.Category.Name
+            : "Unknown"
+    })
+    .ToListAsync();
+
+Console.WriteLine("\n=== Product DTOs ===");
+
+foreach (var product in productDTOs)
+{
+    Console.WriteLine(
+        $"{product.Name} | ₹{product.Price} | {product.CategoryName}");
 }
 
-// Add tags if they do not exist
-var onSaleTag = await context.Tags
-    .FirstOrDefaultAsync(t => t.Name == "On Sale");
-
-if (onSaleTag == null)
-{
-    onSaleTag = new Tag
+// Serialize DTOs safely
+var dtoJson = JsonSerializer.Serialize(
+    productDTOs,
+    new JsonSerializerOptions
     {
-        Name = "On Sale"
-    };
+        WriteIndented = true
+    });
 
-    context.Tags.Add(onSaleTag);
-}
+Console.WriteLine("\n=== DTO JSON ===");
+Console.WriteLine(dtoJson);
 
-var newArrivalTag = await context.Tags
-    .FirstOrDefaultAsync(t => t.Name == "New Arrival");
+// Alternative: JsonIgnore on navigation property
+var categories = await context.Categories
+    .Include(c => c.Products)
+    .AsNoTracking()
+    .ToListAsync();
 
-if (newArrivalTag == null)
-{
-    newArrivalTag = new Tag
+var categoryJson = JsonSerializer.Serialize(
+    categories,
+    new JsonSerializerOptions
     {
-        Name = "New Arrival"
-    };
+        WriteIndented = true
+    });
 
-    context.Tags.Add(newArrivalTag);
-}
-
-// Connect Product and Tags
-if (!smartphone.Tags.Any(t => t.Name == "On Sale"))
-{
-    smartphone.Tags.Add(onSaleTag);
-}
-
-if (!smartphone.Tags.Any(t => t.Name == "New Arrival"))
-{
-    smartphone.Tags.Add(newArrivalTag);
-}
-
-await context.SaveChangesAsync();
-
-// Reload with relationships
-var productWithRelations = await context.Products
-    .Include(p => p.ProductDetail)
-    .Include(p => p.Tags)
-    .FirstAsync(p => p.Name == "Smartphone");
-
-Console.WriteLine($"Product: {productWithRelations.Name}");
-Console.WriteLine($"Warranty: {productWithRelations.ProductDetail?.WarrantyInfo}");
-Console.WriteLine("Tags:");
-
-foreach (var tag in productWithRelations.Tags)
-{
-    Console.WriteLine($"- {tag.Name}");
-}
+Console.WriteLine("\n=== Categories JSON using JsonIgnore ===");
+Console.WriteLine(categoryJson);

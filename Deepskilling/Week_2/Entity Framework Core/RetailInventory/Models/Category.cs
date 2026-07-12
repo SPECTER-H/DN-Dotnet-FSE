@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 namespace RetailInventory.Models;
 
 public class Category
@@ -6,5 +8,6 @@ public class Category
 
     public string Name { get; set; } = string.Empty;
 
+    [JsonIgnore]
     public virtual List<Product> Products { get; set; } = new();
 }
