@@ -1,120 +1,54 @@
-﻿using System.Diagnostics;
-using EFCore.BulkExtensions;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using RetailInventory.Data;
 
-Console.WriteLine("===== Lab 14 - Bulk Operations =====");
+Console.WriteLine("===== Lab 15 - Optimistic Concurrency =====");
 
-// --------------------------------------------------
-// Prepare two identical product lists for comparison
-// --------------------------------------------------
+await using var firstEmployeeContext = new AppDbContext();
+await using var secondEmployeeContext = new AppDbContext();
 
-List<int> regularProductIds;
-List<int> bulkProductIds;
+// Both employees read the same product before either saves.
+var firstEmployeeProduct = await firstEmployeeContext.Products
+    .FirstAsync(product => product.Name == "Smartphone");
 
-await using (var setupContext = new AppDbContext())
+var secondEmployeeProduct = await secondEmployeeContext.Products
+    .FirstAsync(product => product.Name == "Smartphone");
+
+Console.WriteLine(
+    $"Initial stock: {firstEmployeeProduct.StockQuantity}");
+
+// First employee updates and saves successfully.
+firstEmployeeProduct.StockQuantity += 5;
+
+await firstEmployeeContext.SaveChangesAsync();
+
+Console.WriteLine(
+    $"First employee saved stock: {firstEmployeeProduct.StockQuantity}");
+
+// Second employee still has the old RowVersion.
+secondEmployeeProduct.StockQuantity += 10;
+
+try
 {
-    var regularProducts = Enumerable.Range(1, 1000)
-        .Select(index => new RetailInventory.Models.Product
-        {
-            Name = $"Regular Product {index}",
-            Price = 100 + index,
-            StockQuantity = 10,
-            CategoryId = 1
-        })
-        .ToList();
-
-    var bulkProducts = Enumerable.Range(1, 1000)
-        .Select(index => new RetailInventory.Models.Product
-        {
-            Name = $"Bulk Product {index}",
-            Price = 100 + index,
-            StockQuantity = 10,
-            CategoryId = 1
-        })
-        .ToList();
-
-    setupContext.Products.AddRange(regularProducts);
-    setupContext.Products.AddRange(bulkProducts);
-
-    await setupContext.SaveChangesAsync();
-
-    regularProductIds = regularProducts
-        .Select(product => product.Id)
-        .ToList();
-
-    bulkProductIds = bulkProducts
-        .Select(product => product.Id)
-        .ToList();
-}
-
-// ------------------------------------------
-// Regular update using SaveChangesAsync()
-// ------------------------------------------
-
-await using (var regularContext = new AppDbContext())
-{
-    var regularProducts = await regularContext.Products
-        .Where(product => regularProductIds.Contains(product.Id))
-        .ToListAsync();
-
-    foreach (var product in regularProducts)
-    {
-        product.StockQuantity += 5;
-    }
-
-    var regularTimer = Stopwatch.StartNew();
-
-    await regularContext.SaveChangesAsync();
-
-    regularTimer.Stop();
+    await secondEmployeeContext.SaveChangesAsync();
 
     Console.WriteLine(
-        $"Regular SaveChangesAsync: {regularTimer.ElapsedMilliseconds} ms");
+        "Second employee update unexpectedly succeeded.");
 }
-
-// ------------------------------------------
-// Bulk update using BulkUpdateAsync()
-// ------------------------------------------
-
-await using (var bulkContext = new AppDbContext())
+catch (DbUpdateConcurrencyException)
 {
-    var bulkProducts = await bulkContext.Products
-        .Where(product => bulkProductIds.Contains(product.Id))
-        .ToListAsync();
-
-    foreach (var product in bulkProducts)
-    {
-        product.StockQuantity += 5;
-    }
-
-    var bulkTimer = Stopwatch.StartNew();
-
-    await bulkContext.BulkUpdateAsync(bulkProducts);
-
-    bulkTimer.Stop();
+    Console.WriteLine(
+        "Concurrency conflict detected.");
 
     Console.WriteLine(
-        $"BulkUpdateAsync: {bulkTimer.ElapsedMilliseconds} ms");
+        "The second employee attempted to save outdated product data.");
 }
 
-// -------------------------
-// Verify updated stock data
-// -------------------------
+// Read the actual database value.
+await using var verificationContext = new AppDbContext();
 
-await using (var verificationContext = new AppDbContext())
-{
-    var regularUpdatedCount = await verificationContext.Products
-        .CountAsync(product =>
-            regularProductIds.Contains(product.Id) &&
-            product.StockQuantity == 15);
+var currentProduct = await verificationContext.Products
+    .AsNoTracking()
+    .FirstAsync(product => product.Name == "Smartphone");
 
-    var bulkUpdatedCount = await verificationContext.Products
-        .CountAsync(product =>
-            bulkProductIds.Contains(product.Id) &&
-            product.StockQuantity == 15);
-
-    Console.WriteLine();
-    Console.WriteLine($"Regular products updated: {regularUpdatedCount}");
-    Console.WriteLine($"Bulk products updated: {bulkUpdatedCount}");
-}
+Console.WriteLine(
+    $"Final database stock: {currentProduct.StockQuantity}");

@@ -22,13 +22,19 @@ public class AppDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        // One-to-One Relationship
+        // One-to-one relationship
         modelBuilder.Entity<Product>()
-            .HasOne(p => p.ProductDetail)
-            .WithOne(pd => pd.Product)
-            .HasForeignKey<ProductDetail>(pd => pd.ProductId);
+            .HasOne(product => product.ProductDetail)
+            .WithOne(productDetail => productDetail.Product)
+            .HasForeignKey<ProductDetail>(
+                productDetail => productDetail.ProductId);
 
-        // Seed Categories
+        // Application-managed optimistic-concurrency token
+        modelBuilder.Entity<Product>()
+            .Property(product => product.RowVersion)
+            .IsConcurrencyToken();
+
+        // Seed categories
         modelBuilder.Entity<Category>().HasData(
             new Category
             {
@@ -41,7 +47,7 @@ public class AppDbContext : DbContext
                 Name = "Groceries"
             });
 
-        // Seed Products
+        // Seed products
         modelBuilder.Entity<Product>().HasData(
             new Product
             {
@@ -49,7 +55,8 @@ public class AppDbContext : DbContext
                 Name = "Smartphone",
                 Price = 25000,
                 StockQuantity = 50,
-                CategoryId = 1
+                CategoryId = 1,
+                RowVersion = new byte[] { 1 }
             },
             new Product
             {
@@ -57,7 +64,35 @@ public class AppDbContext : DbContext
                 Name = "Wheat Flour",
                 Price = 800,
                 StockQuantity = 100,
-                CategoryId = 2
+                CategoryId = 2,
+                RowVersion = new byte[] { 1 }
             });
+    }
+
+    public override int SaveChanges()
+    {
+        UpdateRowVersions();
+        return base.SaveChanges();
+    }
+
+    public override Task<int> SaveChangesAsync(
+        CancellationToken cancellationToken = default)
+    {
+        UpdateRowVersions();
+        return base.SaveChangesAsync(cancellationToken);
+    }
+
+    private void UpdateRowVersions()
+    {
+        var modifiedProducts = ChangeTracker
+            .Entries<Product>()
+            .Where(entry =>
+                entry.State == EntityState.Added ||
+                entry.State == EntityState.Modified);
+
+        foreach (var entry in modifiedProducts)
+        {
+            entry.Entity.RowVersion = Guid.NewGuid().ToByteArray();
+        }
     }
 }
