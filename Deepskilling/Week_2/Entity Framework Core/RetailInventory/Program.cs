@@ -3,51 +3,40 @@ using RetailInventory.Data;
 
 using var context = new AppDbContext();
 
-Console.WriteLine("===== Lab 7 - LINQ Queries =====");
+Console.WriteLine("===== Lab 10 - Loading Strategies =====");
 
-// 1. Where
-var expensiveProducts = await context.Products
-    .Where(p => p.Price > 1000)
-    .ToListAsync();
+//
+// EAGER LOADING
+//
+Console.WriteLine("\n=== Eager Loading ===");
 
-Console.WriteLine("\nProducts costing more than ₹1000:");
-
-foreach (var product in expensiveProducts)
-{
-    Console.WriteLine($"{product.Name} - ₹{product.Price}");
-}
-
-// 2. OrderByDescending
-var orderedProducts = await context.Products
-    .OrderByDescending(p => p.Price)
-    .ToListAsync();
-
-Console.WriteLine("\nProducts sorted by price:");
-
-foreach (var product in orderedProducts)
-{
-    Console.WriteLine($"{product.Name} - ₹{product.Price}");
-}
-
-// 3. FirstOrDefault
-var firstProduct = await context.Products
-    .FirstOrDefaultAsync();
-
-Console.WriteLine($"\nFirst Product: {firstProduct?.Name}");
-
-// 4. Count
-var totalProducts = await context.Products.CountAsync();
-
-Console.WriteLine($"Total Products: {totalProducts}");
-
-// 5. Include
-var productsWithCategory = await context.Products
+var eagerProducts = await context.Products
     .Include(p => p.Category)
     .ToListAsync();
 
-Console.WriteLine("\nProducts with Category:");
-
-foreach (var product in productsWithCategory)
+foreach (var product in eagerProducts)
 {
-    Console.WriteLine($"{product.Name} ({product.Category?.Name})");
+    Console.WriteLine($"{product.Name} -> {product.Category?.Name}");
 }
+
+//
+// EXPLICIT LOADING
+//
+Console.WriteLine("\n=== Explicit Loading ===");
+
+var firstProduct = await context.Products.FirstAsync();
+
+await context.Entry(firstProduct)
+    .Reference(p => p.Category)
+    .LoadAsync();
+
+Console.WriteLine($"{firstProduct.Name} -> {firstProduct.Category?.Name}");
+
+//
+// LAZY LOADING
+//
+Console.WriteLine("\n=== Lazy Loading ===");
+
+var lazyProduct = await context.Products.FirstAsync();
+
+Console.WriteLine($"{lazyProduct.Name} -> {lazyProduct.Category?.Name}");
