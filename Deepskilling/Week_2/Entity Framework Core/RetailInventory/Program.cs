@@ -1,42 +1,76 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RetailInventory.Data;
+using RetailInventory.Models;
 
 using var context = new AppDbContext();
 
-Console.WriteLine("===== Lab 10 - Loading Strategies =====");
+Console.WriteLine("===== Lab 11 - Relationships =====");
 
-//
-// EAGER LOADING
-//
-Console.WriteLine("\n=== Eager Loading ===");
+// Add ProductDetail for Smartphone if it does not exist
+var smartphone = await context.Products
+    .Include(p => p.ProductDetail)
+    .Include(p => p.Tags)
+    .FirstAsync(p => p.Name == "Smartphone");
 
-var eagerProducts = await context.Products
-    .Include(p => p.Category)
-    .ToListAsync();
-
-foreach (var product in eagerProducts)
+if (smartphone.ProductDetail == null)
 {
-    Console.WriteLine($"{product.Name} -> {product.Category?.Name}");
+    smartphone.ProductDetail = new ProductDetail
+    {
+        WarrantyInfo = "1 year manufacturer warranty"
+    };
 }
 
-//
-// EXPLICIT LOADING
-//
-Console.WriteLine("\n=== Explicit Loading ===");
+// Add tags if they do not exist
+var onSaleTag = await context.Tags
+    .FirstOrDefaultAsync(t => t.Name == "On Sale");
 
-var firstProduct = await context.Products.FirstAsync();
+if (onSaleTag == null)
+{
+    onSaleTag = new Tag
+    {
+        Name = "On Sale"
+    };
 
-await context.Entry(firstProduct)
-    .Reference(p => p.Category)
-    .LoadAsync();
+    context.Tags.Add(onSaleTag);
+}
 
-Console.WriteLine($"{firstProduct.Name} -> {firstProduct.Category?.Name}");
+var newArrivalTag = await context.Tags
+    .FirstOrDefaultAsync(t => t.Name == "New Arrival");
 
-//
-// LAZY LOADING
-//
-Console.WriteLine("\n=== Lazy Loading ===");
+if (newArrivalTag == null)
+{
+    newArrivalTag = new Tag
+    {
+        Name = "New Arrival"
+    };
 
-var lazyProduct = await context.Products.FirstAsync();
+    context.Tags.Add(newArrivalTag);
+}
 
-Console.WriteLine($"{lazyProduct.Name} -> {lazyProduct.Category?.Name}");
+// Connect Product and Tags
+if (!smartphone.Tags.Any(t => t.Name == "On Sale"))
+{
+    smartphone.Tags.Add(onSaleTag);
+}
+
+if (!smartphone.Tags.Any(t => t.Name == "New Arrival"))
+{
+    smartphone.Tags.Add(newArrivalTag);
+}
+
+await context.SaveChangesAsync();
+
+// Reload with relationships
+var productWithRelations = await context.Products
+    .Include(p => p.ProductDetail)
+    .Include(p => p.Tags)
+    .FirstAsync(p => p.Name == "Smartphone");
+
+Console.WriteLine($"Product: {productWithRelations.Name}");
+Console.WriteLine($"Warranty: {productWithRelations.ProductDetail?.WarrantyInfo}");
+Console.WriteLine("Tags:");
+
+foreach (var tag in productWithRelations.Tags)
+{
+    Console.WriteLine($"- {tag.Name}");
+}
