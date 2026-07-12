@@ -10,7 +10,7 @@ using RetailInventory.Data;
 namespace RetailInventory.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260711094501_InitialCreate")]
+    [Migration("20260712042935_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -32,6 +32,18 @@ namespace RetailInventory.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Electronics"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Groceries"
+                        });
                 });
 
             modelBuilder.Entity("RetailInventory.Models.Product", b =>
@@ -50,11 +62,32 @@ namespace RetailInventory.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("StockQuantity")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
 
                     b.ToTable("Products");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CategoryId = 1,
+                            Name = "Smartphone",
+                            Price = 25000m,
+                            StockQuantity = 50
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CategoryId = 2,
+                            Name = "Wheat Flour",
+                            Price = 800m,
+                            StockQuantity = 100
+                        });
                 });
 
             modelBuilder.Entity("RetailInventory.Models.Product", b =>

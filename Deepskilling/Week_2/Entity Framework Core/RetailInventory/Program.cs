@@ -1,132 +1,53 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RetailInventory.Data;
-using RetailInventory.Models;
 
 using var context = new AppDbContext();
 
-Console.WriteLine("===== Retail Inventory System =====");
+Console.WriteLine("===== Lab 7 - LINQ Queries =====");
 
-//
-// LAB 4 - INSERT DATA
-//
-if (!await context.Categories.AnyAsync())
+// 1. Where
+var expensiveProducts = await context.Products
+    .Where(p => p.Price > 1000)
+    .ToListAsync();
+
+Console.WriteLine("\nProducts costing more than ₹1000:");
+
+foreach (var product in expensiveProducts)
 {
-    var electronics =
-        new Category { Name = "Electronics" };
-
-    var groceries =
-        new Category { Name = "Groceries" };
-
-    await context.Categories.AddRangeAsync(
-        electronics,
-        groceries);
-
-    var product1 =
-        new Product
-        {
-            Name = "Laptop",
-            Price = 75000,
-            Category = electronics
-        };
-
-    var product2 =
-        new Product
-        {
-            Name = "Rice Bag",
-            Price = 1200,
-            Category = groceries
-        };
-
-    await context.Products.AddRangeAsync(
-        product1,
-        product2);
-
-    await context.SaveChangesAsync();
-
-    Console.WriteLine("Initial data inserted.");
+    Console.WriteLine($"{product.Name} - ₹{product.Price}");
 }
 
-//
-// LAB 5 - RETRIEVE DATA
-//
-Console.WriteLine();
-Console.WriteLine("All Products:");
+// 2. OrderByDescending
+var orderedProducts = await context.Products
+    .OrderByDescending(p => p.Price)
+    .ToListAsync();
 
-var products =
-    await context.Products
-        .Include(p => p.Category)
-        .ToListAsync();
+Console.WriteLine("\nProducts sorted by price:");
 
-foreach (var p in products)
+foreach (var product in orderedProducts)
 {
-    Console.WriteLine(
-        $"{p.Name} - ₹{p.Price} - {p.Category?.Name}");
+    Console.WriteLine($"{product.Name} - ₹{product.Price}");
 }
 
-Console.WriteLine();
+// 3. FirstOrDefault
+var firstProduct = await context.Products
+    .FirstOrDefaultAsync();
 
-var product =
-    await context.Products.FindAsync(1);
+Console.WriteLine($"\nFirst Product: {firstProduct?.Name}");
 
-Console.WriteLine(
-    $"Found Product: {product?.Name}");
+// 4. Count
+var totalProducts = await context.Products.CountAsync();
 
-Console.WriteLine();
+Console.WriteLine($"Total Products: {totalProducts}");
 
-var expensive =
-    await context.Products
-        .FirstOrDefaultAsync(
-            p => p.Price > 50000);
+// 5. Include
+var productsWithCategory = await context.Products
+    .Include(p => p.Category)
+    .ToListAsync();
 
-Console.WriteLine(
-    $"Expensive Product: {expensive?.Name}");
+Console.WriteLine("\nProducts with Category:");
 
-//
-// LAB 6 - UPDATE
-//
-var laptop =
-    await context.Products
-        .FirstOrDefaultAsync(
-            p => p.Name == "Laptop");
-
-if (laptop != null)
+foreach (var product in productsWithCategory)
 {
-    laptop.Price = 70000;
-
-    await context.SaveChangesAsync();
-
-    Console.WriteLine(
-        "Laptop price updated.");
-}
-
-//
-// LAB 6 - DELETE
-//
-var riceBag =
-    await context.Products
-        .FirstOrDefaultAsync(
-            p => p.Name == "Rice Bag");
-
-if (riceBag != null)
-{
-    context.Products.Remove(riceBag);
-
-    await context.SaveChangesAsync();
-
-    Console.WriteLine(
-        "Rice Bag deleted.");
-}
-
-Console.WriteLine();
-Console.WriteLine("Final Product List:");
-
-var finalProducts =
-    await context.Products
-        .Include(p => p.Category)
-        .ToListAsync();
-
-foreach (var p in finalProducts)
-{
-    Console.WriteLine(
-        $"{p.Name} - ₹{p.Price}");
+    Console.WriteLine($"{product.Name} ({product.Category?.Name})");
 }

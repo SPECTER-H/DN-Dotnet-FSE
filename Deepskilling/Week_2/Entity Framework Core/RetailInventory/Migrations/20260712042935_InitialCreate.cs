@@ -2,6 +2,8 @@
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace RetailInventory.Migrations
 {
     /// <inheritdoc />
@@ -31,6 +33,7 @@ namespace RetailInventory.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(type: "TEXT", nullable: false),
                     Price = table.Column<decimal>(type: "TEXT", nullable: false),
+                    StockQuantity = table.Column<int>(type: "INTEGER", nullable: false),
                     CategoryId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
@@ -42,6 +45,24 @@ namespace RetailInventory.Migrations
                         principalTable: "Categories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Categories",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Electronics" },
+                    { 2, "Groceries" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Products",
+                columns: new[] { "Id", "CategoryId", "Name", "Price", "StockQuantity" },
+                values: new object[,]
+                {
+                    { 1, 1, "Smartphone", 25000m, 50 },
+                    { 2, 2, "Wheat Flour", 800m, 100 }
                 });
 
             migrationBuilder.CreateIndex(
