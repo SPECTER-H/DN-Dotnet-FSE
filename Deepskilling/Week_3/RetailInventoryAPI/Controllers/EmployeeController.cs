@@ -72,17 +72,22 @@ public class EmployeeController : ControllerBase
     [ProducesResponseType(
         typeof(Employee),
         StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public ActionResult<Employee> Put(
         int id,
         [FromBody] Employee employee)
     {
+        if (id <= 0)
+        {
+            return BadRequest("Invalid employee id");
+        }
+
         var existingEmployee = Employees
             .FirstOrDefault(item => item.Id == id);
 
         if (existingEmployee == null)
         {
-            return NotFound();
+            return BadRequest("Invalid employee id");
         }
 
         existingEmployee.Name = employee.Name;
@@ -93,6 +98,29 @@ public class EmployeeController : ControllerBase
         existingEmployee.DateOfBirth = employee.DateOfBirth;
 
         return Ok(existingEmployee);
+    }
+
+    [HttpDelete("{id:int}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public IActionResult Delete(int id)
+    {
+        if (id <= 0)
+        {
+            return BadRequest("Invalid employee id");
+        }
+
+        var employee = Employees
+            .FirstOrDefault(item => item.Id == id);
+
+        if (employee == null)
+        {
+            return BadRequest("Invalid employee id");
+        }
+
+        Employees.Remove(employee);
+
+        return NoContent();
     }
 
     [HttpGet("exception")]
