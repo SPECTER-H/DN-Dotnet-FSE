@@ -25,7 +25,36 @@ builder.Services.AddSwaggerGen(options =>
             License = new OpenApiLicense
             {
                 Name = "License Terms",
-                Url = new Uri("https://www.example.com/license")
+                Url = new Uri(
+                    "https://www.example.com/license")
+            }
+        });
+
+    options.AddSecurityDefinition(
+        "Bearer",
+        new OpenApiSecurityScheme
+        {
+            Name = "Authorization",
+            Description =
+                "Enter: Bearer followed by any test token",
+            In = ParameterLocation.Header,
+            Type = SecuritySchemeType.ApiKey,
+            Scheme = "Bearer"
+        });
+
+    options.AddSecurityRequirement(
+        new OpenApiSecurityRequirement
+        {
+            {
+                new OpenApiSecurityScheme
+                {
+                    Reference = new OpenApiReference
+                    {
+                        Type = ReferenceType.SecurityScheme,
+                        Id = "Bearer"
+                    }
+                },
+                Array.Empty<string>()
             }
         });
 });
