@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RetailInventoryAPI.Filters;
 using RetailInventoryAPI.Models;
@@ -6,7 +7,7 @@ namespace RetailInventoryAPI.Controllers;
 
 [ApiController]
 [Route("api/Emp")]
-[CustomAuthFilter]
+[Authorize(Roles = "POC,Admin")]
 public class EmployeeController : ControllerBase
 {
     private static readonly List<Employee> Employees = [];
@@ -23,7 +24,8 @@ public class EmployeeController : ControllerBase
     [ProducesResponseType(
         typeof(IEnumerable<Employee>),
         StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
     public ActionResult<IEnumerable<Employee>> GetStandard()
     {
         return Ok(Employees);
@@ -33,6 +35,8 @@ public class EmployeeController : ControllerBase
     [ProducesResponseType(
         typeof(Employee),
         StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public ActionResult<Employee> Get(int id)
     {
@@ -52,6 +56,8 @@ public class EmployeeController : ControllerBase
         typeof(Employee),
         StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
     public ActionResult<Employee> Post(
         [FromBody] Employee employee)
     {
@@ -73,6 +79,8 @@ public class EmployeeController : ControllerBase
         typeof(Employee),
         StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
     public ActionResult<Employee> Put(
         int id,
         [FromBody] Employee employee)
@@ -103,6 +111,8 @@ public class EmployeeController : ControllerBase
     [HttpDelete("{id:int}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
     public IActionResult Delete(int id)
     {
         if (id <= 0)
@@ -127,6 +137,8 @@ public class EmployeeController : ControllerBase
     [CustomExceptionFilter]
     [ProducesResponseType(
         StatusCodes.Status500InternalServerError)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
     public ActionResult TestException()
     {
         throw new InvalidOperationException(
