@@ -1,0 +1,10 @@
+<article class="course-card">
+  <h2>{{ course.name }}</h2>
+
+  <p><strong>Course code:</strong> {{ course.code }}</p>
+  <p><strong>Credits:</strong> {{ course.credits }}</p>
+
+  <button type="button" (click)="requestEnrollment()">
+    Enroll
+  </button>
+</article>
