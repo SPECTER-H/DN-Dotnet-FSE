@@ -1,0 +1,148 @@
+<section class="reactive-enrollment-page">
+  <h1>Reactive Enrollment Form</h1>
+
+  <form
+    [formGroup]="enrollForm"
+    (ngSubmit)="onSubmit()"
+  >
+    <div class="form-field">
+      <label for="reactive-student-name">
+        Student name
+      </label>
+
+      <input
+        id="reactive-student-name"
+        type="text"
+        formControlName="studentName"
+      />
+    </div>
+
+    <div class="form-field">
+      <label for="reactive-student-email">
+        Student email
+      </label>
+
+      <input
+        id="reactive-student-email"
+        type="email"
+        formControlName="studentEmail"
+      />
+
+      <span
+        class="validation-message"
+        *ngIf="
+          enrollForm.get('studentEmail')?.pending
+        "
+      >
+        Checking email availability...
+      </span>
+
+      <span
+        class="error-message"
+        *ngIf="
+          enrollForm
+            .get('studentEmail')
+            ?.errors?.['emailTaken']
+        "
+      >
+        Email is already taken
+      </span>
+    </div>
+
+    <div class="form-field">
+      <label for="reactive-course-id">
+        Course ID
+      </label>
+
+      <input
+        id="reactive-course-id"
+        type="text"
+        formControlName="courseId"
+        placeholder="Example: ANG101"
+      />
+
+      <span
+        class="error-message"
+        *ngIf="
+          enrollForm
+            .get('courseId')
+            ?.errors?.['noCourseCode']
+        "
+      >
+        Course code starting with XX is not allowed.
+      </span>
+    </div>
+
+    <div class="form-field">
+      <label for="reactive-semester">
+        Preferred semester
+      </label>
+
+      <select
+        id="reactive-semester"
+        formControlName="preferredSemester"
+      >
+        <option value="Odd">Odd</option>
+        <option value="Even">Even</option>
+      </select>
+    </div>
+
+    <div class="checkbox-field">
+      <input
+        id="reactive-terms"
+        type="checkbox"
+        formControlName="agreeToTerms"
+      />
+
+      <label for="reactive-terms">
+        I agree to the terms and conditions
+      </label>
+    </div>
+
+    <fieldset class="additional-courses">
+      <legend>Additional courses</legend>
+
+      <div formArrayName="additionalCourses">
+        <div
+          class="additional-course-row"
+          *ngFor="
+            let control of additionalCourses.controls;
+            let index = index
+          "
+        >
+          <input
+            type="text"
+            [formControlName]="index"
+            placeholder="Additional course code"
+          />
+
+          <button
+            type="button"
+            class="remove-button"
+            (click)="removeCourse(index)"
+          >
+            Remove
+          </button>
+        </div>
+      </div>
+
+      <button
+        type="button"
+        class="add-button"
+        (click)="addCourse()"
+      >
+        Add Another Course
+      </button>
+    </fieldset>
+
+    <button
+      type="submit"
+      [disabled]="
+        enrollForm.invalid ||
+        enrollForm.pending
+      "
+    >
+      Submit
+    </button>
+  </form>
+</section>
