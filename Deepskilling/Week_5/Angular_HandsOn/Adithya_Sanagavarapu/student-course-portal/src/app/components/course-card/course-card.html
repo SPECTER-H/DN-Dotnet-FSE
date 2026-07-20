@@ -1,10 +1,66 @@
-<article class="course-card">
+<article
+  class="course-card"
+  [ngClass]="cardClasses"
+  [ngStyle]="{
+    'border-left-color':
+      course.gradeStatus === 'passed'
+        ? 'green'
+        : course.gradeStatus === 'failed'
+          ? 'red'
+          : 'grey'
+  }"
+>
   <h2>{{ course.name }}</h2>
 
   <p><strong>Course code:</strong> {{ course.code }}</p>
-  <p><strong>Credits:</strong> {{ course.credits }}</p>
 
-  <button type="button" (click)="requestEnrollment()">
-    Enroll
-  </button>
+  <p>
+    <strong>Credits:</strong>
+    {{ course.credits | creditLabel }}
+  </p>
+
+  <div [ngSwitch]="course.gradeStatus">
+    <span
+      *ngSwitchCase="'passed'"
+      class="status passed"
+    >
+      Passed
+    </span>
+
+    <span
+      *ngSwitchCase="'failed'"
+      class="status failed"
+    >
+      Failed
+    </span>
+
+    <span
+      *ngSwitchDefault
+      class="status pending"
+    >
+      Pending
+    </span>
+  </div>
+
+  <div class="actions">
+    <button type="button" (click)="requestEnrollment()">
+      {{ course.enrolled ? 'Enrolled' : 'Enroll' }}
+    </button>
+
+    <button
+      type="button"
+      class="details-button"
+      (click)="toggleDetails()"
+    >
+      {{ isExpanded ? 'Hide Details' : 'Show Details' }}
+    </button>
+  </div>
+
+  <div class="course-details">
+    <p>
+      This course carries
+      {{ course.credits | creditLabel }}
+      and currently has a {{ course.gradeStatus }} grade status.
+    </p>
+  </div>
 </article>

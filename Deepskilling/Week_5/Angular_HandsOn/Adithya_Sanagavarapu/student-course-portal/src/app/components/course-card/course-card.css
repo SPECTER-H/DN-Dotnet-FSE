@@ -1,17 +1,71 @@
-.course-card {
+:host {
+  display: block;
   height: 100%;
-  padding: 1rem;
-  border: 1px solid #d6d6d6;
   border-radius: 8px;
   background-color: #ffffff;
+}
+
+.course-card {
+  min-height: 260px;
+  padding: 1rem;
+  border: 1px solid #d6d6d6;
+  border-left: 6px solid grey;
+  border-radius: 8px;
+  background-color: inherit;
   box-sizing: border-box;
+  transition:
+    min-height 0.2s ease,
+    background-color 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .course-card h2 {
   margin-top: 0;
 }
 
-.course-card button {
+.card-enrolled {
+  background-color: #ecfdf5;
+  box-shadow: 0 0 0 2px #22c55e;
+}
+
+.card-full {
+  border-top: 4px solid #2563eb;
+}
+
+.expanded {
+  min-height: 350px;
+}
+
+.status {
+  display: inline-block;
+  margin-bottom: 1rem;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  font-weight: 600;
+}
+
+.passed {
+  color: #166534;
+  background-color: #dcfce7;
+}
+
+.failed {
+  color: #991b1b;
+  background-color: #fee2e2;
+}
+
+.pending {
+  color: #374151;
+  background-color: #e5e7eb;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.actions button {
   padding: 0.6rem 1rem;
   border: 0;
   border-radius: 4px;
@@ -20,6 +74,15 @@
   cursor: pointer;
 }
 
-.course-card button:hover {
-  background-color: #1d4ed8;
+.actions .details-button {
+  background-color: #475569;
+}
+
+.course-details {
+  display: none;
+  margin-top: 1rem;
+}
+
+.expanded .course-details {
+  display: block;
 }
