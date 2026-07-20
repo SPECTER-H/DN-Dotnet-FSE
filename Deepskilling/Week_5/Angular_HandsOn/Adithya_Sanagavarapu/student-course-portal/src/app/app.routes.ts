@@ -1,19 +1,24 @@
 import { Routes } from '@angular/router';
 import { CourseList } from './pages/course-list/course-list';
+import { EnrollmentForm } from './pages/enrollment-form/enrollment-form';
 import { Home } from './pages/home/home';
 import { StudentProfile } from './pages/student-profile/student-profile';
 
 export const routes: Routes = [
   {
     path: '',
-    component: Home
+    component: Home,
   },
   {
     path: 'courses',
-    component: CourseList
+    component: CourseList,
   },
   {
     path: 'profile',
-    component: StudentProfile
-  }
+    component: StudentProfile,
+  },
+  {
+    path: 'enroll',
+    component: EnrollmentForm,
+  },
 ];
