@@ -1,0 +1,45 @@
+<section class="home">
+  <h1>{{ portalName }}</h1>
+
+  <p>Welcome to the student learning portal.</p>
+
+  <button
+    type="button"
+    [disabled]="!isPortalActive"
+    (click)="onEnrollClick()"
+  >
+    Enroll Now
+  </button>
+
+  <p class="message">{{ message }}</p>
+
+  <div class="search">
+    <label for="course-search">
+      Search courses
+    </label>
+
+    <input
+      id="course-search"
+      type="text"
+      [(ngModel)]="searchTerm"
+      placeholder="Enter a course name"
+    />
+
+    <p>Searching for: {{ searchTerm }}</p>
+  </div>
+
+  <p>
+    Live available courses:
+    <strong>{{ courseCount }}</strong>
+  </p>
+
+  <app-course-summary-widget>
+  </app-course-summary-widget>
+
+  <h2>Component-Level Provider Demonstration</h2>
+
+  <div class="notification-grid">
+    <app-notification></app-notification>
+    <app-notification></app-notification>
+  </div>
+</section>

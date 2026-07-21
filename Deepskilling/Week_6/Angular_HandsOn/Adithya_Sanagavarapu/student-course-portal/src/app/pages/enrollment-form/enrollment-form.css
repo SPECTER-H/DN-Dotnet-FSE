@@ -1,0 +1,81 @@
+.enrollment-page {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.enrollment-page form {
+  display: grid;
+  gap: 1rem;
+}
+
+.form-field {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.form-field label,
+.checkbox-field label {
+  font-weight: 600;
+}
+
+.form-field input,
+.form-field select {
+  padding: 0.7rem;
+  border: 2px solid #94a3b8;
+  border-radius: 5px;
+  font: inherit;
+  outline: none;
+}
+
+.form-field input.ng-invalid.ng-touched,
+.form-field select.ng-invalid.ng-touched {
+  border-color: red;
+}
+
+.form-field input.ng-valid.ng-touched,
+.form-field select.ng-valid.ng-touched {
+  border-color: green;
+}
+
+.checkbox-field {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.error-message {
+  color: #b91c1c;
+  font-size: 0.9rem;
+}
+
+.form-actions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.form-actions button {
+  padding: 0.7rem 1.2rem;
+  border: 0;
+  border-radius: 5px;
+  color: #ffffff;
+  background-color: #2563eb;
+  cursor: pointer;
+}
+
+.form-actions button:disabled {
+  cursor: not-allowed;
+  background-color: #94a3b8;
+}
+
+.form-actions .reset-button {
+  background-color: #475569;
+}
+
+.success-message {
+  margin-top: 1rem;
+  padding: 1rem;
+  border-radius: 6px;
+  color: #166534;
+  background-color: #dcfce7;
+}

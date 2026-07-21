@@ -1,0 +1,16 @@
+<section class="student-profile">
+  <h1>Student Profile</h1>
+
+  <h2>Enrolled Courses</h2>
+
+  <ul *ngIf="enrolledCourses.length > 0; else noEnrollments">
+    <li *ngFor="let course of enrolledCourses">
+      <strong>{{ course.name }}</strong>
+      - {{ course.code }}
+    </li>
+  </ul>
+
+  <ng-template #noEnrollments>
+    <p>No courses enrolled.</p>
+  </ng-template>
+</section>

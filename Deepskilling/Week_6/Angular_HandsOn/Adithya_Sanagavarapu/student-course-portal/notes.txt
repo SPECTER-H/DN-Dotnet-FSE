@@ -1,0 +1,41 @@
+Angular Project Structure Notes
+
+1. angular.json
+Contains the Angular workspace configuration, including build, development-server, test and production settings.
+
+2. tsconfig.json
+Contains the base TypeScript compiler configuration shared by the Angular application.
+
+3. tsconfig.app.json
+Contains the TypeScript compiler settings specifically used to build the application source code.
+
+4. package.json
+Lists the project scripts, Angular packages, development dependencies and their required versions.
+
+5. src/main.ts
+Acts as the application entry point and bootstraps the standalone Angular application.
+
+6. src/app/app.config.ts
+Contains application-wide providers such as routing and other dependency-injection configuration.
+
+7. src/app/app.ts
+Defines the root Angular component that Angular bootstraps when the application starts.
+
+8. src/index.html
+Provides the main HTML document containing the root app component where Angular renders the application.
+
+Build Output Notes
+
+The ng build command generates the deployable application inside the dist/student-course-portal directory.
+
+The generated main-*.js file contains the compiled application code. In this build, the file is main-OZ2T5IEA.js.
+
+Production Budget Notes
+
+The initial bundle has a maximumWarning value of 500kB and a maximumError value of 1MB.
+
+An individual component stylesheet has a maximumWarning value of 4kB and a maximumError value of 8kB.
+
+maximumWarning displays a build warning when the generated bundle or component stylesheet exceeds the configured size.
+
+maximumError causes the production build to fail when the generated bundle or component stylesheet exceeds the configured size.

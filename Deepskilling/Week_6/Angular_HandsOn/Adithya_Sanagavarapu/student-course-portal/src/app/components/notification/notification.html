@@ -1,0 +1,18 @@
+<section class="notification-panel">
+  <h3>Scoped Notifications</h3>
+
+  <p>
+    Notification count:
+    <strong>{{ notifications.length }}</strong>
+  </p>
+
+  <button type="button" (click)="addNotification()">
+    Add Notification
+  </button>
+
+  <ul *ngIf="notifications.length > 0">
+    <li *ngFor="let notification of notifications">
+      {{ notification }}
+    </li>
+  </ul>
+</section>
