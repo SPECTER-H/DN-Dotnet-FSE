@@ -53,10 +53,14 @@ function simulateEmailCheck(
   templateUrl: './reactive-enrollment-form.html',
   styleUrl: './reactive-enrollment-form.css',
 })
-export class ReactiveEnrollmentForm implements OnInit {
+export class ReactiveEnrollmentForm
+  implements OnInit
+{
   enrollForm!: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(
+    private formBuilder: FormBuilder,
+  ) {}
 
   ngOnInit(): void {
     this.enrollForm = this.formBuilder.group({
@@ -74,9 +78,7 @@ export class ReactiveEnrollmentForm implements OnInit {
           Validators.required,
           Validators.email,
         ],
-        [
-          simulateEmailCheck,
-        ],
+        [simulateEmailCheck],
       ),
 
       courseId: [
@@ -97,13 +99,12 @@ export class ReactiveEnrollmentForm implements OnInit {
         Validators.requiredTrue,
       ],
 
-      additionalCourses: this.formBuilder.array([]),
+      additionalCourses:
+        this.formBuilder.array([]),
     });
   }
 
   get additionalCourses(): FormArray {
-    // This typed getter keeps the FormArray cast in TypeScript
-    // instead of repeatedly casting it inside the template.
     return this.enrollForm.get(
       'additionalCourses',
     ) as FormArray;
@@ -111,7 +112,10 @@ export class ReactiveEnrollmentForm implements OnInit {
 
   addCourse(): void {
     this.additionalCourses.push(
-      new FormControl('', Validators.required),
+      new FormControl(
+        '',
+        Validators.required,
+      ),
     );
   }
 
@@ -124,12 +128,20 @@ export class ReactiveEnrollmentForm implements OnInit {
       return;
     }
 
-    // value excludes disabled controls, while getRawValue()
-    // includes every control, including disabled controls.
-    console.log('Form value:', this.enrollForm.value);
+    console.log(
+      'Form value:',
+      this.enrollForm.value,
+    );
+
     console.log(
       'Raw form value:',
       this.enrollForm.getRawValue(),
     );
+
+    this.enrollForm.markAsPristine();
+  }
+
+  hasUnsavedChanges(): boolean {
+    return this.enrollForm?.dirty ?? false;
   }
 }

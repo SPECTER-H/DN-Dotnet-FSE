@@ -33,7 +33,8 @@ import { EnrollmentService } from '../../services/enrollment';
 export class CourseCard implements OnChanges {
   @Input() course!: Course;
 
-  @Output() enrollRequested = new EventEmitter<number>();
+  @Output() enrollRequested =
+    new EventEmitter<number>();
 
   isExpanded = false;
 
@@ -50,7 +51,8 @@ export class CourseCard implements OnChanges {
   get cardClasses(): Record<string, boolean> {
     return {
       'card-enrolled': this.isEnrolled,
-      'card-full': (this.course.credits ?? 0) >= 4,
+      'card-full':
+        (this.course.credits ?? 0) >= 4,
       expanded: this.isExpanded,
     };
   }
@@ -71,17 +73,24 @@ export class CourseCard implements OnChanges {
     }
   }
 
-  toggleEnrollment(): void {
+  toggleEnrollment(event: MouseEvent): void {
+    event.stopPropagation();
+
     if (this.isEnrolled) {
-      this.enrollmentService.unenroll(this.course.id);
+      this.enrollmentService.unenroll(
+        this.course.id,
+      );
     } else {
-      this.enrollmentService.enroll(this.course.id);
+      this.enrollmentService.enroll(
+        this.course.id,
+      );
     }
 
     this.enrollRequested.emit(this.course.id);
   }
 
-  toggleDetails(): void {
+  toggleDetails(event: MouseEvent): void {
+    event.stopPropagation();
     this.isExpanded = !this.isExpanded;
   }
 }

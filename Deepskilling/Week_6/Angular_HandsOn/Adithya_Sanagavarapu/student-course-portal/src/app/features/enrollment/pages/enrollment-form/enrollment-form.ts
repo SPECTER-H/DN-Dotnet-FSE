@@ -1,6 +1,12 @@
 import { NgIf } from '@angular/common';
-import { Component } from '@angular/core';
-import { FormsModule, NgForm } from '@angular/forms';
+import {
+  Component,
+  ViewChild,
+} from '@angular/core';
+import {
+  FormsModule,
+  NgForm,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-enrollment-form',
@@ -9,6 +15,9 @@ import { FormsModule, NgForm } from '@angular/forms';
   styleUrl: './enrollment-form.css',
 })
 export class EnrollmentForm {
+  @ViewChild('enrollForm')
+  enrollForm?: NgForm;
+
   submitted = false;
 
   enrollment = {
@@ -20,13 +29,25 @@ export class EnrollmentForm {
   };
 
   onSubmit(form: NgForm): void {
-    console.log('Enrollment form value:', form.value);
-    console.log('Enrollment form valid:', form.valid);
+    console.log(
+      'Enrollment form value:',
+      form.value,
+    );
+
+    console.log(
+      'Enrollment form valid:',
+      form.valid,
+    );
 
     if (form.invalid) {
       return;
     }
 
     this.submitted = true;
+    form.form.markAsPristine();
+  }
+
+  hasUnsavedChanges(): boolean {
+    return this.enrollForm?.dirty ?? false;
   }
 }

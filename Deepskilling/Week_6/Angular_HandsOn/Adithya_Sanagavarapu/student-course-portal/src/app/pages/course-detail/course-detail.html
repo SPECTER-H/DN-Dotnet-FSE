@@ -1,0 +1,38 @@
+<section
+  class="course-detail"
+  *ngIf="course as selectedCourse; else courseNotFound"
+>
+  <h1>{{ selectedCourse.name }}</h1>
+
+  <p>
+    <strong>Course ID:</strong>
+    {{ selectedCourse.id }}
+  </p>
+
+  <p>
+    <strong>Course code:</strong>
+    {{ selectedCourse.code }}
+  </p>
+
+  <p>
+    <strong>Credits:</strong>
+    {{ selectedCourse.credits | creditLabel }}
+  </p>
+
+  <p>
+    <strong>Grade status:</strong>
+    {{ selectedCourse.gradeStatus }}
+  </p>
+
+  <p>
+    <strong>Enrollment status:</strong>
+    {{ selectedCourse.enrolled ? 'Enrolled' : 'Not enrolled' }}
+  </p>
+</section>
+
+<ng-template #courseNotFound>
+  <section class="course-detail">
+    <h1>Course Not Found</h1>
+    <p>The requested course does not exist.</p>
+  </section>
+</ng-template>
